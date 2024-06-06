@@ -34,7 +34,7 @@ export default function HomeScreen() {
         <DollarIcon />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <AddTransaction insertTransaction={insertTransaction} />
+        <AddTransaction />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <TransactionSummary

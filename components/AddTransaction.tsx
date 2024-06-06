@@ -5,6 +5,7 @@ import Card from "./ui/Card";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { useSQLiteContext } from "expo-sqlite/next";
 import { Category, Transaction } from "../types";
+import useExpenseController from "@/hooks/useExpenseController";
 
 export default function AddTransaction() {
   const [isAddingTransaction, setIsAddingTransaction] =
@@ -17,6 +18,7 @@ export default function AddTransaction() {
   const [category, setCategory] = React.useState<string>("Expense");
   const [categoryId, setCategoryId] = React.useState<number>(1);
   const db = useSQLiteContext();
+  const { insertTransaction } = useExpenseController();
 
   React.useEffect(() => {
     getExpenseType(currentTab);
