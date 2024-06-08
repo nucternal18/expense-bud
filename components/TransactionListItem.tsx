@@ -56,8 +56,12 @@ function TransactionInfo({
 }) {
   return (
     <View style={{ flexGrow: 1, gap: 6, flexShrink: 1 }}>
-      <Text style={{ fontSize: 16, fontWeight: "bold" }}>{description}</Text>
-      <Text>Transaction number {id}</Text>
+      <Text style={{ fontSize: 16, fontWeight: "bold", color: "#ffe" }}>
+        {description}
+      </Text>
+      <Text style={{ color: "#ffe" }}>
+        Transaction number {id}
+      </Text>
       <Text style={{ fontSize: 12, color: "gray" }}>
         {new Date(date * 1000).toDateString()}
       </Text>
@@ -116,6 +120,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 32,
     fontWeight: "800",
+    color: "#fff"
   },
   row: {
     flexDirection: "row",

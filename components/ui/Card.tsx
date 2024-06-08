@@ -1,4 +1,5 @@
 import { View, ViewStyle } from "react-native";
+import { ThemedView } from "../ThemedView";
 
 interface CardProps extends React.PropsWithChildren {
   style?: ViewStyle;
@@ -6,11 +7,11 @@ interface CardProps extends React.PropsWithChildren {
 
 export default function Card({ children, style = {} }: CardProps) {
   return (
-    <View
+    <ThemedView
       style={{
         padding: 15,
         borderRadius: 15,
-        backgroundColor: "white",
+        backgroundColor: "#007BFF20",
         elevation: 8,
         shadowColor: "#000",
         shadowRadius: 8,
@@ -20,6 +21,6 @@ export default function Card({ children, style = {} }: CardProps) {
       }}
     >
       {children}
-    </View>
+    </ThemedView>
   );
 }

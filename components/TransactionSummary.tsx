@@ -7,6 +7,8 @@ export default function TransactionSummary({
   totalIncome,
   totalExpenses,
 }: TransactionsByMonth) {
+  console.log("🚀 ~ totalExpenses:", totalExpenses)
+  console.log("🚀 ~ totalIncome:", totalIncome)
   const savings = totalIncome - totalExpenses;
   const readablePeriod = new Date().toLocaleDateString("default", {
     month: "long",
@@ -57,12 +59,12 @@ const styles = StyleSheet.create({
   periodTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
     marginBottom: 15,
   },
   summaryText: {
     fontSize: 18,
-    color: "#333",
+    color: "#ffe",
     marginBottom: 10,
   },
   // Removed moneyText style since we're now generating it dynamically
