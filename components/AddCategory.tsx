@@ -17,16 +17,11 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import useExpenseController from "@/hooks/useExpenseController";
 import DropdownSelect from "./Dropdown";
 
-export default function AddTransaction() {
+export default function AddCategory() {
   const [typeSelected, setTypeSelected] = React.useState<string>("");
 
-  const {
-    handleSave,
-    form,
-    isAddingCategory,
-    setIsAddingCategory,
-
-  } = useExpenseController();
+  const { insertCategory, form, isAddingCategory, setIsAddingCategory } =
+    useExpenseController({ category: "", type: "" });
 
   return (
     <View style={{ marginBottom: 15 }}>
@@ -47,7 +42,7 @@ export default function AddTransaction() {
                     fontWeight: "bold",
                     color: "#fff",
                   }}
-                  keyboardType="numeric"
+                  keyboardType="ascii-capable"
                   onChangeText={onChange}
                   value={value}
                   onBlur={onBlur}
@@ -62,8 +57,8 @@ export default function AddTransaction() {
               }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <DropdownSelect
-                  label="Currency"
-                  placeholder="Select multiple currencies..."
+                  label="Type"
+                  placeholder="Select category type"
                   options={[
                     { name: "Expense", id: 1 },
                     { name: "Income", id: 2 },
@@ -71,14 +66,34 @@ export default function AddTransaction() {
                   optionLabel={"name"}
                   optionValue={"name"}
                   selectedValue={value}
-                  onValueChange={(itemValue: any) => onChange(itemValue)}
-                  isMultiple
-                  isSearchable
+                  onValueChange={onChange}
                   primaryColor={"deepskyblue"}
+                  modalControls={{
+                    modalOptionsContainerStyle: {
+                      paddingVertical: 10,
+                      paddingHorizontal: 20,
+                    }
+                  }}
                 />
               )}
-              name="description"
+              name="type"
             />
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <Button
+                title="Cancel"
+                color="red"
+                onPress={() => setIsAddingCategory(false)}
+              />
+              <Button
+                title="Save"
+                onPress={form.handleSubmit(insertCategory)}
+              />
+            </View>
           </Card>
         </View>
       ) : (
@@ -87,7 +102,6 @@ export default function AddTransaction() {
     </View>
   );
 }
-
 
 function AddButton({
   setIsAddingCategory,

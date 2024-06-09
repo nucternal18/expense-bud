@@ -1,3 +1,4 @@
+import React from "react";
 import type {
   ViewStyle,
   ColorValue,
@@ -5,6 +6,7 @@ import type {
   ModalProps,
   TextInputProps,
   SectionList,
+  GestureResponderEvent,
 } from "react-native";
 
 export type DropdownProps = CommonDropdownProps &
@@ -16,7 +18,7 @@ export type DropdownProps = CommonDropdownProps &
 
 export type CommonDropdownProps = {
   label?: string;
-  options: TFlatList | TSectionList;
+  options: { [key: string]: string | number | boolean }[];
   optionLabel?: string;
   optionValue?: string;
   onValueChange: Function;
@@ -34,8 +36,6 @@ export type TDropdownInputProps = {
   placeholder?: string;
   error?: string;
   helperText?: string;
-  isMultiple?: boolean;
-  isSearchable?: boolean;
   dropdownIcon?: React.ReactNode;
   labelStyle?: TextStyle;
   dropdownStyle?: ViewStyle;
@@ -125,9 +125,9 @@ export type TSectionListItem = { title: string; data: TFlatList };
 
 export type CheckboxProps = {
   label?: string;
-  value?: boolean;
+  value?: string | number | boolean | string[] | number[] | boolean[] | null;
   disabled?: boolean;
   primaryColor?: ColorValue;
-  onChange?: (value: boolean | string | number) => void;
+  onChange?: ((event: any) => void) | null | undefined;
   checkboxComponentStyles?: ViewStyle & TCheckboxControls;
 } & TCheckboxControls;

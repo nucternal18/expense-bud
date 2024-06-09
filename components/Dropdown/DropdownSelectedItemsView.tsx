@@ -57,34 +57,16 @@ const DropdownSelectedItemsView = ({
           style={styles.selectedItemsContainer}
           onStartShouldSetResponder={() => true}
         >
-          {isMultiple ? (
-            getSelectedItemsLabel()?.map((label: string, i: Number) => (
-              <DropdownContent
-                onPress={() => {
-                  handleToggleModal();
-                  setIndexOfSelectedItem(label); // immediately scrolls to list item with the specified label when modal
-                }}
-                key={`react-native-input-select-${Math.random()}-${i}`}
-                style={[
-                  styles.selectedItems,
-                  { backgroundColor: primaryColor },
-                  multipleSelectedItemStyle,
-                ]}
-                label={label}
-                disabled={disabled}
-              />
-            ))
-          ) : (
-            <DropdownContent
-              onPress={() => {
-                handleToggleModal();
-                setIndexOfSelectedItem(getSelectedItemsLabel()); // immediately scrolls to list item with the specified label when modal
-              }}
-              style={[styles.blackText, selectedItemStyle]}
-              label={getSelectedItemsLabel()}
-              disabled={disabled}
-            />
-          )}
+          <DropdownContent
+            onPress={() => {
+              handleToggleModal();
+              setIndexOfSelectedItem(getSelectedItemsLabel()); // immediately scrolls to list item with the specified label when modal
+            }}
+            style={[styles.blackText, selectedItemStyle]}
+            label={getSelectedItemsLabel()}
+            disabled={disabled}
+          />
+
           {!selectedItem && selectedItems?.length === 0 && (
             <DropdownContent
               onPress={() => handleToggleModal()}
@@ -97,7 +79,7 @@ const DropdownSelectedItemsView = ({
       </ScrollView>
       <View style={[styles.iconStyle, dropdownIconStyle]}>
         {dropdownIcon || (
-          <Image source={require("../../asset/arrow-down.png")} />
+          <Image source={require("../../assets/images/arrow-down.png")} />
         )}
       </View>
     </Pressable>

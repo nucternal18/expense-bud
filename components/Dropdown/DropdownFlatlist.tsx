@@ -13,11 +13,8 @@ const DropdownFlatList = ({
   options,
   optionLabel,
   optionValue,
-  isMultiple,
-  isSearchable,
   selectedItems,
   selectedItem,
-  handleMultipleSelections,
   handleSingleSelection,
   primaryColor,
   checkboxSize, // kept for backwards compatibility to be removed in future release
@@ -31,25 +28,11 @@ const DropdownFlatList = ({
   emptyListMessage,
   ...rest
 }: any) => {
-  const flatlistRef = useRef<FlatList<TFlatList>>(null);
 
-  const scrollToItem = (index: number) => {
-    flatlistRef.current?.scrollToIndex({
-      index,
-      animated: true,
-    });
-  };
-
-  useEffect(() => {
-    if (listIndex.itemIndex >= 0) {
-      scrollToItem(listIndex.itemIndex);
-    }
-  }, [listIndex]);
 
   return (
     <FlatList
       data={options}
-      extraData={isMultiple ? selectedItems : selectedItem}
       initialNumToRender={5}
       ListEmptyComponent={
         <ListEmptyComponent
@@ -58,37 +41,29 @@ const DropdownFlatList = ({
         />
       }
       contentContainerStyle={[
-        isSearchable ? { paddingTop: 0 } : styles.contentContainerStyle,
+         styles.contentContainerStyle,
       ]}
       ItemSeparatorComponent={() => (
         <ItemSeparatorComponent
           itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
         />
       )}
-      renderItem={(item) =>
-        _renderItem(item, {
+      renderItem={(item) =>{
+        return _renderItem(item, {
           optionLabel,
           optionValue,
-          isMultiple,
-          selectedOption: isMultiple ? selectedItems : selectedItem,
-          onChange: isMultiple
-            ? handleMultipleSelections
-            : handleSingleSelection,
+          selectedOption: selectedItem,
+          onChange: handleSingleSelection,
           primaryColor,
           checkboxSize, // kept for backwards compatibility
           checkboxStyle, // kept for backwards compatibility
           checkboxLabelStyle, // kept for backwards compatibility
           checkboxComponentStyles, // kept for backwards compatibility
           checkboxComponent, // kept for backwards compatibility
-        })
+        })}
       }
       keyExtractor={(_item, index) => `Options${index}`}
-      ref={flatlistRef}
-      onScrollToIndexFailed={({ index }) => {
-        setTimeout(() => {
-          scrollToItem(index);
-        }, 500);
-      }}
+      gap={5}
       {...rest}
     />
   );
@@ -119,7 +94,6 @@ const _renderItem = (
       item={item}
       optionLabel={props.optionLabel}
       optionValue={props.optionValue}
-      isMultiple={props.isMultiple}
       selectedOption={props.selectedOption}
       onChange={props.onChange}
       primaryColor={props.primaryColor}
@@ -133,7 +107,7 @@ const _renderItem = (
 };
 
 const styles = StyleSheet.create({
-  contentContainerStyle: { paddingTop: 20 },
+  contentContainerStyle: { paddingVertical: 10 },
 });
 
 export default DropdownFlatList;

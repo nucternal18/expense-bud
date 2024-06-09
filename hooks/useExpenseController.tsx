@@ -23,8 +23,7 @@ export default function useExpenseController(
 ) {
   const [isAddingTransaction, setIsAddingTransaction] =
     useState<boolean>(false);
-  const [isAddingCategory, setIsAddingCategory] =
-    useState<boolean>(false);
+  const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [category, setCategory] = useState<string>("Expense");
   const [categories, setCategories] = useState<Category[]>([]);
@@ -176,18 +175,25 @@ export default function useExpenseController(
    * @param {Category} category - The category object to be inserted.
    * @returns {Promise<void>} - A promise that resolves when the category is successfully inserted.
    */
-  async function insertCategory(category: Category): Promise<void> {
-    db.withTransactionAsync(async () => {
-      await db.runAsync(
-        `
-                INSERT INTO Categories (name, type) VALUES (?, ?);
-            `,
-        [category.name, category.type]
-      );
-      await getData();
-      setIsAddingCategory(false);
-    });
-  }
+  const insertCategory: SubmitHandler<TransactionFormProps> = useCallback(
+    async (category) => {
+      console.log({
+        name: category.category,
+        type: category.type,
+      });
+      // db.withTransactionAsync(async () => {
+      //   await db.runAsync(
+      //     `
+      //             INSERT INTO Categories (name, type) VALUES (?, ?);
+      //         `,
+      //     [category.category as string, category.type as string]
+      //   );
+      //   await getData();
+      //   setIsAddingCategory(false);
+      // });
+    },
+    []
+  );
 
   /**
    * Deletes a category with the specified ID from the database.

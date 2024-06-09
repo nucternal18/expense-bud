@@ -26,8 +26,6 @@ export type TDropdownSectionList = {
   options: any[];
   optionLabel: string;
   optionValue: string;
-  isMultiple: boolean;
-  isSearchable: boolean;
   selectedItems: any[];
   selectedItem: any;
   handleMultipleSelections: (value: any) => void;
@@ -45,7 +43,9 @@ export type TDropdownSectionList = {
   listHeaderComponent?: React.ComponentProps<
     typeof SectionList
   >["ListHeaderComponent"];
-  listFooterComponent?: React.ComponentProps<typeof SectionList>["ListFooterComponent"];
+  listFooterComponent?: React.ComponentProps<
+    typeof SectionList
+  >["ListFooterComponent"];
   rest?: React.ComponentProps<typeof SectionList>;
 };
 
@@ -53,8 +53,6 @@ const DropdownSectionList = ({
   options,
   optionLabel,
   optionValue,
-  isMultiple,
-  isSearchable,
   selectedItems,
   selectedItem,
   handleMultipleSelections,
@@ -122,7 +120,7 @@ const DropdownSectionList = ({
   return (
     <SectionList
       sections={options}
-      extraData={isMultiple ? selectedItems : selectedItem}
+      extraData={ selectedItem}
       initialNumToRender={5}
       ListHeaderComponent={listHeaderComponent}
       ListFooterComponent={listFooterComponent}
@@ -132,23 +130,21 @@ const DropdownSectionList = ({
           emptyListMessage={emptyListMessage}
         />
       }
-      contentContainerStyle={[
-        isSearchable ? { paddingTop: 0 } : styles.contentContainerStyle,
+      contentContainerStyle={[ styles.contentContainerStyle,
       ]}
       ItemSeparatorComponent={() => (
         <ItemSeparatorComponent
           itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
         />
       )}
-      renderItem={(item) =>
-        _renderItem(item, {
+      renderItem={(item) => {
+        console.log("item", item);
+        return _renderItem(item, {
           optionLabel,
           optionValue,
-          isMultiple,
-          selectedOption: isMultiple ? selectedItems : selectedItem,
-          onChange: isMultiple
-            ? handleMultipleSelections
-            : handleSingleSelection,
+
+          selectedOption:  selectedItem,
+          onChange: handleSingleSelection,
           primaryColor,
           checkboxSize, // kept for backwards compatibility
           checkboxStyle, // kept for backwards compatibility
@@ -156,8 +152,8 @@ const DropdownSectionList = ({
           checkboxComponentStyles, // kept for backwards compatibility
           checkboxComponent, // kept for backwards compatibility
           expandedSections,
-        })
-      }
+        });
+      }}
       renderSectionHeader={({ section: { title } }) => (
         <SectionHeaderTitle
           title={title}
@@ -211,7 +207,6 @@ const _renderItem = (
       item={item}
       optionLabel={props.optionLabel}
       optionValue={props.optionValue}
-      isMultiple={props.isMultiple}
       selectedOption={props.selectedOption}
       onChange={props.onChange}
       primaryColor={props.primaryColor}

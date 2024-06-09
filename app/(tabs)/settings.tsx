@@ -6,6 +6,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import useExpenseController from "@/hooks/useExpenseController";
+import AddCategory from "@/components/AddCategory";
 
 export default function TabTwoScreen() {
   const { categories, isLoaded, form } = useExpenseController({ category: "", type: ""});
@@ -30,6 +31,9 @@ export default function TabTwoScreen() {
             This screen shows a list of categories. You can add, edit, or delete
             categories from the database.
           </ThemedText>
+          <ThemedView>
+            <AddCategory />
+          </ThemedView>
           {categories.map((category) => (
             <ThemedText key={category.id}>{category.name}</ThemedText>
           ))}

@@ -63,7 +63,7 @@ export const SectionHeaderTitle = ({
           {title}
         </Text>
         <View style={isExpanded ? null : styles.rotatedIcon90}>
-          <Image source={require("../../asset/arrow-down.png")} />
+          <Image source={require("../../assets/images/arrow-down.png")} />
         </View>
       </ListItemContainer>
     </TouchableOpacity>

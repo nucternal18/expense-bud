@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { colors } from "./Dropdown/styles/colors";
 import { TCustomModalControls } from "./Dropdown/types";
+import { ThemedView } from "./ThemedView";
 
 type ScreenWrapperProps = {
   children: React.ReactNode;
@@ -57,14 +58,14 @@ const CustomModal = ({
         >
           {/* Added this `TouchableWithoutFeedback` wrapper because of the closing modal on expo web */}
           <TouchableWithoutFeedback onPress={() => {}}>
-            <SafeAreaView
+            <ThemedView
               style={[
                 styles.modalOptionsContainer,
                 modalControls?.modalOptionsContainerStyle
               ]}
             >
               {children}
-            </SafeAreaView>
+            </ThemedView>
           </TouchableWithoutFeedback>
         </TouchableOpacity>
       </ModalContentWrapper>
@@ -79,8 +80,7 @@ const styles = StyleSheet.create({
   },
   modalBackgroundStyle: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
   modalOptionsContainer: {
-    maxHeight: "50%",
-    backgroundColor: colors.white,
+    maxHeight: "60%",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     zIndex: 5,

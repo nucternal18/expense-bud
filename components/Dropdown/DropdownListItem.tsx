@@ -1,13 +1,18 @@
 import React, { memo } from "react";
-import { TouchableOpacity, StyleSheet, TextProps, ViewStyle, TextStyle } from "react-native";
-import CheckBox from "./Checkbox";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  TextProps,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import type { CheckboxProps } from "./types";
+import { ThemedText } from "../ThemedText";
 
 type DropdownListItemProps = {
   item: any;
   optionLabel: string;
   optionValue: string;
-  isMultiple: boolean;
   selectedOption: any;
   onChange: (value: any) => void;
   primaryColor: string;
@@ -22,8 +27,6 @@ const DropdownListItem = ({
   item,
   optionLabel,
   optionValue,
-  isMultiple,
-  selectedOption,
   onChange,
   primaryColor,
   checkboxSize,
@@ -32,30 +35,26 @@ const DropdownListItem = ({
   checkboxComponentStyles,
   checkboxComponent,
 }: DropdownListItemProps) => {
+
   return (
     <TouchableOpacity
       style={styles.listItemContainerStyle}
       onPress={
-        item.disabled ? () => {} : () => onChange(item[optionValue]) // intentionally didn't use the disable property
+        () => onChange(item[optionValue]) // intentionally didn't use the disable property
       }
     >
-      <CheckBox
-        value={
-          isMultiple
-            ? selectedOption.includes(item[optionValue])
-            : [selectedOption].includes(item[optionValue])
-        }
-        label={item[optionLabel]}
-        onChange={() => onChange(item[optionValue])}
-        primaryColor={primaryColor}
-        checkboxSize={checkboxComponentStyles?.checkboxSize || checkboxSize}
-        checkboxStyle={checkboxComponentStyles?.checkboxStyle || checkboxStyle}
-        checkboxLabelStyle={
-          checkboxComponentStyles?.checkboxLabelStyle || checkboxLabelStyle
-        }
-        disabled={item.disabled}
-        checkboxComponent={checkboxComponent}
-      />
+      {optionLabel && optionLabel !== "" && (
+        <ThemedText
+          style={[
+            checkboxLabelStyle ||
+              checkboxComponentStyles?.checkboxLabelStyle ||
+              checkboxLabelStyle,
+            styles.labelStyle,
+          ]}
+        >
+          {item[optionValue]}
+        </ThemedText>
+      )}
     </TouchableOpacity>
   );
 };
@@ -66,7 +65,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 5,
   },
+  labelStyle: { marginLeft: 10 },
 });
 
 export default memo(DropdownListItem);
