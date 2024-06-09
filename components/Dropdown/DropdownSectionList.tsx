@@ -10,14 +10,14 @@ import {
 import { extractPropertyFromArray } from "@/utils";
 import type { CheckboxProps, TCheckboxControls, TSectionList } from "./types";
 
-export type ListComponentStyles = {
+export type ListComponentStylesProps = {
   listEmptyComponentStyle: TextStyle;
   itemSeparatorStyle: ViewStyle;
   listItemContainerStyle: ViewStyle;
   sectionHeaderStyle: TextStyle;
 };
 
-export type ListIndex = {
+export type ListIndexProps = {
   sectionIndex: number;
   itemIndex: number;
 };
@@ -38,10 +38,15 @@ export type TDropdownSectionList = {
   checkboxLabelStyle: TextStyle;
   checkboxComponentStyles: ViewStyle;
   checkboxComponent: CheckboxProps["checkboxComponent"];
-  checkboxControls: TCheckboxControls;
-  listComponentStyles: ListComponentStyles;
-  listIndex: ListIndex;
+  checkboxControls?: TCheckboxControls;
+  listComponentStyles: ListComponentStylesProps;
+  listIndex: ListIndexProps;
   emptyListMessage: string;
+  listHeaderComponent?: React.ComponentProps<
+    typeof SectionList
+  >["ListHeaderComponent"];
+  listFooterComponent?: React.ComponentProps<typeof SectionList>["ListFooterComponent"];
+  rest?: React.ComponentProps<typeof SectionList>;
 };
 
 const DropdownSectionList = ({
@@ -64,6 +69,8 @@ const DropdownSectionList = ({
   listComponentStyles,
   listIndex,
   emptyListMessage,
+  listHeaderComponent,
+  listFooterComponent,
   ...rest
 }: TDropdownSectionList) => {
   const [expandedSections, setExpandedSections] = useState<Set<any>>(new Set());
@@ -117,6 +124,8 @@ const DropdownSectionList = ({
       sections={options}
       extraData={isMultiple ? selectedItems : selectedItem}
       initialNumToRender={5}
+      ListHeaderComponent={listHeaderComponent}
+      ListFooterComponent={listFooterComponent}
       ListEmptyComponent={
         <ListEmptyComponent
           listEmptyComponentStyle={listComponentStyles?.listEmptyComponentStyle}
@@ -185,6 +194,7 @@ const _renderItem = (
     | "handleMultipleSelections"
     | "handleSingleSelection"
     | "checkboxControls"
+    | "rest"
   > & {
     expandedSections: Set<any>;
     selectedOption: any;

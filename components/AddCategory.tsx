@@ -15,6 +15,7 @@ import * as z from "zod";
 import Card from "./ui/Card";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import useExpenseController from "@/hooks/useExpenseController";
+import DropdownSelect from "./Dropdown";
 
 export default function AddTransaction() {
   const [typeSelected, setTypeSelected] = React.useState<string>("");
@@ -60,17 +61,24 @@ export default function AddTransaction() {
                 required: true,
               }}
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  placeholder="Description"
-                  style={{ marginBottom: 15, color: "#fff" }}
-                  onChangeText={onChange}
-                  value={value}
-                  onBlur={onBlur}
+                <DropdownSelect
+                  label="Currency"
+                  placeholder="Select multiple currencies..."
+                  options={[
+                    { name: "Expense", id: 1 },
+                    { name: "Income", id: 2 },
+                  ]}
+                  optionLabel={"name"}
+                  optionValue={"name"}
+                  selectedValue={value}
+                  onValueChange={(itemValue: any) => onChange(itemValue)}
+                  isMultiple
+                  isSearchable
+                  primaryColor={"deepskyblue"}
                 />
               )}
               name="description"
             />
-
           </Card>
         </View>
       ) : (

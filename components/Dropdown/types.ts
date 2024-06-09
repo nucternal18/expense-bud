@@ -4,6 +4,7 @@ import type {
   TextStyle,
   ModalProps,
   TextInputProps,
+  SectionList,
 } from "react-native";
 
 export type DropdownProps = CommonDropdownProps &
@@ -11,7 +12,7 @@ export type DropdownProps = CommonDropdownProps &
   TSearchControls &
   TCheckboxControls &
   TCustomModalControls &
-  TListControls;
+  TListControls & CheckboxProps
 
 export type CommonDropdownProps = {
   label?: string;
@@ -52,8 +53,8 @@ export type TDropdownInputProps = {
 };
 
 export type TSearchControls = {
-  /** @deprecated Use `searchControls = {{textInputStyle: ViewStyle | TextStyle }}` instead.*/
-  searchInputStyle?: ViewStyle;
+  // /** @deprecated Use `searchControls = {{textInputStyle: ViewStyle | TextStyle }}` instead.*/
+  // searchInputStyle?: ViewStyle;
   searchControls?: {
     textInputStyle?: ViewStyle | TextStyle;
     textInputContainerStyle?: ViewStyle;
@@ -83,12 +84,12 @@ export type TCheckboxControls = {
 };
 
 export type TCustomModalControls = {
-  /** @deprecated Use `modalControls = {{modalBackgroundStyle: ViewStyle}} instead.*/
-  modalBackgroundStyle?: ViewStyle;
-  /** @deprecated Use `modalControls = {{ modalOptionsContainerStyle: ViewStyle}} instead.*/
-  modalOptionsContainerStyle?: ViewStyle;
-  /** @deprecated Use `modalControls = {{modalProps: ModalProps }}` instead.*/
-  modalProps?: ModalProps;
+  // /** @deprecated Use `modalControls = {{modalBackgroundStyle: ViewStyle}} instead.*/
+  // modalBackgroundStyle?: ViewStyle;
+  // /** @deprecated Use `modalControls = {{ modalOptionsContainerStyle: ViewStyle}} instead.*/
+  // modalOptionsContainerStyle?: ViewStyle;
+  // /** @deprecated Use `modalControls = {{modalProps: ModalProps }}` instead.*/
+  // modalProps?: ModalProps;
   modalControls?: {
     modalBackgroundStyle?: ViewStyle;
     modalOptionsContainerStyle?: ViewStyle;
@@ -97,8 +98,8 @@ export type TCustomModalControls = {
 };
 
 export type TListControls = {
-  listHeaderComponent?: React.ReactNode;
-  listFooterComponent?: React.ReactNode;
+  listHeaderComponent?: React.ComponentProps<typeof SectionList>["ListHeaderComponent"];
+  listFooterComponent?: React.ComponentProps<typeof SectionList>["ListFooterComponent"];
   listComponentStyles?: {
     listEmptyComponentStyle?: TextStyle;
     itemSeparatorStyle?: ViewStyle;
