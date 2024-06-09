@@ -1,50 +1,114 @@
-# Welcome to your Expo app 👋
+# Welcome to Expense Bud
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+
+The Expense Tracker Application helps users manage their finances by tracking expenses and incomes. It provides a summary of all incomes and expenses within a month and calculates the balance.
+
+## Features
+
+- Track incomes and expenses
+- Categorize transactions as Expense or Income
+- Monthly summaries of all transactions
+- Calculate balance
+
+## To-Do List
+
+### User Authentication and Profiles
+
+- [ ] User Registration and Login
+- [ ] Profile Management
+
+### Expense and Income Management
+
+- [ ] Recurring Transactions
+- [ ] Category Customization
+
+### Detailed Reporting and Analytics
+
+- [ ] Monthly and Annual Reports
+- [ ] Spending Trends and Charts
+- [ ] Top Expense Categories
+
+### Budgeting and Goal Setting
+
+- [ ] Budget Limits
+- [ ] Savings Goals
+
+### Notifications and Reminders
+
+- [ ] Expense Reminders
+- [ ] Budget Alerts
+
+### Integration and Data Management
+
+- [ ] Bank Integration
+- [ ] Export Data (CSV, PDF)
+- [ ] Data Backup and Restore
+
+### User Experience and Accessibility
+
+- [ ] Multilingual Support
+- [ ] Dark Mode
+- [ ] Accessibility Features
+
+### Security and Privacy
+
+- [ ] Data Encryption
+- [ ] Privacy Policy and Terms of Service
+
+### Additional Functionalities
+
+- [ ] Receipt Scanning
+- [ ] Shared Accounts
+- [ ] Location-based Categorization
+
+### Community and Support
+
+- [ ] User Community
+- [ ] Customer Support
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- Expo CLI
+- Bun
 
 ## Get started
 
-1. Install dependencies
+1. Clone the repository:
 
    ```bash
-   npm install
+   git clone https://github.com/yourusername/expense-tracker.git
    ```
 
-2. Start the app
+2. Install dependencies
 
    ```bash
-    npx expo start
+   bun install
    ```
 
-In the output, you'll find options to open the app in a
+3. Start the app
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+    bunx expo start --clear
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Try Prebuild
 
-## Get a fresh project
+1. Run the following command to regenerate the android and ios directories based on the app config (app.json/app.config.js) configuration:
 
-When you're ready, run:
+   ```bash
+   bunx expo prebuild --clean
+   ```
 
-```bash
-npm run reset-project
-```
+2. You can test that everything worked by building the projects locally:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+    ```bash
+    # Build your native Android project
+    - bunx expo run:android
+    
+    # Build your native iOS project
+    - bunx expo run:ios
+    ```
