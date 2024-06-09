@@ -6,8 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Category, Transaction, TransactionsByMonth } from "@/types";
 
 const transactionFormSchema = z.object({
-  amount: z.string(),
-  description: z.string(),
+  amount: z.string().optional(),
+  description: z.string().optional(),
+  category: z.string().optional(),
+  type: z.string().optional(),
 });
 
 type TransactionFormProps = z.infer<typeof transactionFormSchema>;
@@ -16,8 +18,12 @@ type TransactionFormProps = z.infer<typeof transactionFormSchema>;
  * Custom hook for managing expenses and transactions.
  * @returns An object containing the categories, transactions, transactionsByMonth, deleteTransaction, and insertTransaction functions.
  */
-export default function useExpenseController() {
+export default function useExpenseController(
+  defaultValues: TransactionFormProps = { amount: "", description: "" }
+) {
   const [isAddingTransaction, setIsAddingTransaction] =
+    useState<boolean>(false);
+  const [isAddingCategory, setIsAddingCategory] =
     useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [category, setCategory] = useState<string>("Expense");
@@ -35,12 +41,7 @@ export default function useExpenseController() {
 
   const form = useForm({
     resolver: zodResolver(transactionFormSchema),
-    defaultValues: {
-      amount: "",
-      description: "",
-      category: "",
-      categoryId: 0,
-    },
+    defaultValues: defaultValues,
   });
 
   /**
@@ -71,7 +72,7 @@ export default function useExpenseController() {
   const handleSave: SubmitHandler<TransactionFormProps> = useCallback(
     async (data) => {
       // Remove any non-numeric characters before setting the state
-      const numericValue = data.amount.replace(/[^0-9.]/g, "");
+      const numericValue = data?.amount?.replace(/[^0-9.]/g, "");
       console.log({
         amount: Number(numericValue),
         description: data.description,
@@ -83,7 +84,7 @@ export default function useExpenseController() {
       // @ts-ignore
       await insertTransaction({
         amount: Number(numericValue),
-        description: data.description,
+        description: data.description!,
         category_id: categoryId,
         date: new Date().getTime() / 1000,
         type: category as "Expense" | "Income",
@@ -92,7 +93,6 @@ export default function useExpenseController() {
       setCategory("Expense");
       setCurrentTab(0);
       setIsAddingTransaction(false);
-      
     },
     [categoryId, category]
   );
@@ -185,6 +185,7 @@ export default function useExpenseController() {
         [category.name, category.type]
       );
       await getData();
+      setIsAddingCategory(false);
     });
   }
 
@@ -208,6 +209,8 @@ export default function useExpenseController() {
     form,
     isAddingTransaction,
     currentTab,
+    isAddingCategory,
+    setIsAddingCategory,
     deleteTransaction,
     insertTransaction,
     insertCategory,

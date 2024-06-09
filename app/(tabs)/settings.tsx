@@ -2,14 +2,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, Image, Platform, ActivityIndicator } from "react-native";
 
 import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import useExpenseController from "@/hooks/useExpenseController";
 
 export default function TabTwoScreen() {
-  const { categories, isLoaded } = useExpenseController();
+  const { categories, isLoaded, form } = useExpenseController({ category: "", type: ""});
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
